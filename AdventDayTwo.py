@@ -1,38 +1,59 @@
-import math
+codes = [
+    1,12,2,3,
+    1,1,2,3,
+    1,3,4,3,
+    1,5,0,3,
+    2,1,9,19,
+    1,19,5,23,
+    2,6,23,27,
+    1,6,27,31,
+    2,31,9,35,
+    1,35,6,39,
+    1,10,39,43,
+    2,9,43,47,
+    1,5,47,51,
+    2,51,6,55,
+    1,5,55,59,
+    2,13,59,63,
+    1,63,5,67,
+    2,67,13,71,
+    1,71,9,75,
+    1,75,6,79,
+    2,79,6,83,
+    1,83,5,87,
+    2,87,9,91,
+    2,9,91,95,
+    1,5,95,99,
+    2,99,13,103,
+    1,103,5,107,
+    1,2,107,111,
+    1,111,5,0,
+    99,
+    2,14,0,0]
 
-mass = [119341,141179,104964,90174,106547,78708,128438,84980,66768,106894,82394,95489,52669,95631,66849,135461,88795,77228,
-123981,72391,103823,63982,64997,145184,69311,117874,106314,101353,114745,88889,83875,85051,101949,118449,65252,135144,68497,
-132390,105856,121098,144838,87829,141579,140516,126377,55911,89261,76610,135578,110154,147648,106639,143854,91637,84297,117449,
-75041,58141,132983,114681,75817,116453,56544,65230,90622,133929,92089,134197,104271,127204,149761,128253,132253,109273,88734,
-136243,122128,119246,121118,128448,137797,66767,67488,90616,97823,51642,98789,94130,128350,101600,85570,145174,127257,141772,
-144415,82959,58548,129474,125838,68864]
+currentIndex = 0
 
-totalFuel = 0
+while currentIndex <= len(codes):
+    opcode = codes[currentIndex]
 
-def calculateFuel(firstValue):
+    if opcode == 99:
+        print(codes[0])
+        break
 
-    calcList = []
-    tempValue = 0
-    total = 0
-
-    calcList.append(firstValue)
-    tempValue = firstValue
-
-    while tempValue > 0:
-        tempValue = (math.floor(tempValue/3)) - 2
-        if tempValue > 0:
-            calcList.append(tempValue)
-    for f in calcList:
-        total = total + f
-    return total
-
-for m in mass:
-    value = math.floor(m/3) - 2
-    # firstValue = math.floor(value/3) - 2
+    firstIndex = codes[currentIndex + 1]
+    firstValue = codes[firstIndex]
     
-    totalFuel = totalFuel +  calculateFuel(value)
+    secondIndex = codes[currentIndex + 2]
+    secondValue = codes[secondIndex]
+    
+    totalIndex = codes[currentIndex + 3]
+    # totalIndex = codes[thirdIndex]
 
-print(totalFuel)
-
-
-      
+    if opcode == 1:
+        codes[totalIndex] = firstValue + secondValue
+        currentIndex += 4
+        continue
+    elif opcode == 2:
+        codes[totalIndex] = firstValue * secondValue
+        currentIndex += 4
+        continue
